@@ -8,14 +8,17 @@ public class SniperRifle : MonoBehaviour
     public Animator anim;
     public Camera mainCamera;
     public float zoom = 15;
-    private float normal;
+    public Ogre ogre;
+    public Enemy enemy;
 
+
+    private float normal;
     private bool isScoped;
 
     // Use this for initialization
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -23,12 +26,12 @@ public class SniperRifle : MonoBehaviour
     {
         Shooting();
 
-        if(Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1))
         {
             isScoped = !isScoped;
             anim.SetBool("Scoped", isScoped);
 
-            if(isScoped)
+            if (isScoped)
             {
                 StartCoroutine(Scoped());
             }
@@ -61,18 +64,35 @@ public class SniperRifle : MonoBehaviour
     void Shooting()
     {
         RaycastHit hit;
-
         // When you left click the gun shoots
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+        Debug.DrawLine(ray.origin, ray.origin + ray.direction * 1000, Color.red);
         if (Input.GetMouseButtonDown(0))
         {
             // Sets the gun to recoil and plays a gunshot
             StartCoroutine(Recoil());
             // Makes a raycast from the camera to the mouse at all times
-            Ray ray = Camera.main.ScreenPointToRay(new Vector2(Screen.width / 2, Screen.height / 2));
-            Debug.DrawLine(ray.origin, ray.origin + ray.direction * 1000, Color.red);
             if (Physics.Raycast(ray, out hit, 1000))
             {
+                if (hit.collider.CompareTag("OgreHead"))
+                {
+                    ogre.health -= 2;
+                }
 
+                if (hit.collider.CompareTag("OgreBody"))
+                {
+                    ogre.health -= 1;
+                }
+
+                if (hit.collider.CompareTag("SkeleHead"))
+                {
+                    enemy.health -= 2;
+                }
+
+                if (hit.collider.CompareTag("SkeleBody"))
+                {
+                    enemy.health -= 1;
+                }
             }
         }
     }
