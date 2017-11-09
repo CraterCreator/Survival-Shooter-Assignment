@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Tower : MonoBehaviour
 {
@@ -16,9 +17,11 @@ public class Tower : MonoBehaviour
     void Update()
     {
         transform.localScale = towerHeight;
+        // if the tower gets destroyed return to main menu
         if (towerHeight.y <= 0.2f)
         {
-            Time.timeScale = 0;
+            SceneManager.LoadScene(0);
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 }

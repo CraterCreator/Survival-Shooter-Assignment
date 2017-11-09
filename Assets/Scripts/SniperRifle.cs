@@ -24,25 +24,35 @@ public class SniperRifle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
+    }
+
+    public void Inputs()
+    {
+        // you press left click to shoot and right click to zoom in(only works offline)
         Shooting();
-
-        if (Input.GetMouseButtonDown(1))
+        if (overlay != null)
         {
-            isScoped = !isScoped;
-            anim.SetBool("Scoped", isScoped);
+            if (Input.GetMouseButtonDown(1))
+            {
+                isScoped = !isScoped;
+                anim.SetBool("Scoped", isScoped);
 
-            if (isScoped)
-            {
-                StartCoroutine(Scoped());
-            }
-            else
-            {
-                UnScoped();
+                if (isScoped)
+                {
+                    StartCoroutine(Scoped());
+                }
+                else
+                {
+                    UnScoped();
+                }
             }
         }
 
     }
 
+    // Scopes in
     IEnumerator Scoped()
     {
         yield return new WaitForSeconds(0.15f);
@@ -53,6 +63,7 @@ public class SniperRifle : MonoBehaviour
         mainCamera.fieldOfView = zoom;
     }
 
+    // unscopes
     void UnScoped()
     {
         overlay.SetActive(false);
@@ -76,22 +87,22 @@ public class SniperRifle : MonoBehaviour
             {
                 if (hit.collider.CompareTag("OgreHead"))
                 {
-                    ogre.health -= 2;
+                    Ogre.health -= 2;
                 }
 
                 if (hit.collider.CompareTag("OgreBody"))
                 {
-                    ogre.health -= 1;
+                    Ogre.health -= 1;
                 }
 
                 if (hit.collider.CompareTag("SkeleHead"))
                 {
-                    enemy.health -= 2;
+                    Enemy.health -= 2;
                 }
 
                 if (hit.collider.CompareTag("SkeleBody"))
                 {
-                    enemy.health -= 1;
+                    Enemy.health -= 1;
                 }
             }
         }

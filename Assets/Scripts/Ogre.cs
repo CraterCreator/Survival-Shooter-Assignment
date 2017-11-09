@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Ogre : MonoBehaviour
 {
-    public int health = 3;
+    public static int health = 3;
     public float moveSpeed = 5;
     public GameObject locate;
 
@@ -21,9 +21,11 @@ public class Ogre : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Moves towards the tower
         Vector3 dir = locate.transform.position - transform.position;
         transform.Translate(dir.normalized * moveSpeed * Time.deltaTime, Space.World);
 
+        // If out of health fly off then destroy
         if (health <= 0)
         {
             rigid.velocity = new Vector3(0, transform.position.y * 60, 0);
@@ -33,7 +35,8 @@ public class Ogre : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        if(col.gameObject.tag == "Tower")
+        // Once hitting the tower it falls a little
+        if (col.gameObject.tag == "Tower")
         {
             Tower.towerHeight.y -= 0.2f;
             Destroy(gameObject);

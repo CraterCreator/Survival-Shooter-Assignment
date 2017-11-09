@@ -7,8 +7,6 @@ public class Player : MonoBehaviour
     #region Variables
     // Sets to total movespeed for all directions
     public float moveSpeed = 2f;
-    // Sets up audio clips to be played
-    public AudioClip gunShot;
     // Is the vector3 that creates movement
     private Vector3 moveDirection = Vector3.zero;
     // Calls the audio source already on the player
@@ -28,6 +26,11 @@ public class Player : MonoBehaviour
         controller = GetComponent<CharacterController>();
     }
 
+    void Start()
+    {
+
+    }
+
     void Update()
     {
         // if time is normal everthing will run
@@ -35,8 +38,15 @@ public class Player : MonoBehaviour
         {
             #region Movement
 
+            #endregion
+        }
+
+    }
+
+    public void Movement(float h, float v)
+    {
             // Inputs a,d keys for horizontal movement and w,s keys for vertical movement
-            moveDirection = new Vector3(Input.GetAxis("Horizontal"), -1, Input.GetAxis("Vertical"));
+            moveDirection = new Vector3(h, -1, v);
             moveDirection = transform.TransformDirection(moveDirection);
             // Times's the movement by the movespeed
             moveDirection *= moveSpeed;
@@ -45,8 +55,5 @@ public class Player : MonoBehaviour
             controller.Move(moveDirection * Time.deltaTime);
 
             moveDirection.y -= -9.81f * Time.deltaTime;
-            #endregion
-        }
-
     }
 }

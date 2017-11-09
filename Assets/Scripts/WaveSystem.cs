@@ -14,16 +14,18 @@ public class WaveSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        // The waves will start once the timer hits 0
         if (timer <= 0)
         {
             timer = 20.1f;
             StartCoroutine(SpawnWave());
         }
 
+        // The timer will go down each second
         timer -= Time.deltaTime;
     }
 
+    // Spawns the waves adding additional enemies every wave
     IEnumerator SpawnWave()
     {
         if (enemyNum <= 50)
@@ -48,6 +50,7 @@ public class WaveSystem : MonoBehaviour
         }
     }
 
+    // Spawns the skeleton or ogre at a random spawnpoint
     void EnemySpawn()
     {
         spawnPoint = spawnPoints[Random.Range(0, 7)];
