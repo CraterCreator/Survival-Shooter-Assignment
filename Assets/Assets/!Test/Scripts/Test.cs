@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Test : MonoBehaviour
 {
     public float checkDelay = 1f;
-
+    //Magic
     private float checkTimer = 0f;
 
     // Update is called once per frame
