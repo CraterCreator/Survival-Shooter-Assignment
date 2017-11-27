@@ -1,0 +1,1 @@
+"C:\Program Files\Unity_2017.2.0f3\Editor\Unity.exe" -batchmode -runTests -projectPath "C:\Users\emman\.jenkins\workspace\GitTest" -testResults "C:\Users\emman\.jenkins\workspace\GitTest\TestResults\results.xml" -testPlatform editmode
